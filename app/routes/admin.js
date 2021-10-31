@@ -4,6 +4,6 @@ module.exports = function (application) {
     });
     application.post("/noticias/salvar", (req, res) => {
         var news = req.body;
-        res.render(news);
+        res.send(news);
     });
 };
