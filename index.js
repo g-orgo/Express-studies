@@ -1,5 +1,4 @@
 var app = require("./config/server");
+var port = 3000 || process.env.port;
 
-var newsRoute = require("./app/routes/noticias")(app); // Passando a aplicação para a rota
-var homeRoute = require("./app/routes/home")(app);
-var addNewsRoute = require("./app/routes/formulario_inclusao_noticia")(app);
+app.listen(port, console.log(`Rodando na porta ${port}`)); // Isso estará ouvindo a porta que o servidor está aberto

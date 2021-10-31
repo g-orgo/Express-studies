@@ -1,25 +1,15 @@
-module.exports = function (app) {
-    app.get("/noticias", (req, res) => {
-        var mysql = require("mysql");
+module.exports = function (application) {
+    application.get("/noticias", (req, res) => {
+        /* Diferente da maioria dos módulos que criei este (dbConnection) irá 
+        ser chamado apenas quando necessário */
+        var connection = application.config.dbConnection();
+        var noticiasModel = application.app.models.noticiasModel;
 
-        var connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "portal_noticias",
+        noticiasModel.getNoticias(connection, function (err, result) {
+            /* O legal de fazer como um módulo independente
+            essa consulta no banco é que isso além de estar dentro
+            da SRP é reaproveitável em outros pontos do código */
+            res.render("noticias/noticias", { news: result }); // Passando as informações do banco para o front
         });
-        connection.connect();
-
-        connection.query(
-            "SELECT * FROM noticias",
-            function (err, result) {
-                /* query() espera como parâmetros uma
-                chamada em SQL para o banco e uma função
-                callback contendo erro e resultado */
-                if (err) throw err;
-                res.render("noticias/noticias", {news: result}); // Passando as informações do banco para o front
-            }
-        );
-
     });
 };

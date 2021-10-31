@@ -11,13 +11,11 @@
             <tr>
                 <td>ID</td>
                 <td>Titulo</td>
-                <td>Noticia</td>
             </tr>
             <% for(var i=0; i < news.length; i++) {%>
             <tr>
-                <td><%= news[i].noticia_id %></td>
+                <td><%= news[i].id_noticia %></td>
                 <td><%= news[i].titulo %></td>
-                <td><%= news[i].noticia %></td>
             </tr>
             <% } %>
         </table>
